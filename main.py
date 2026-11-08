@@ -39,7 +39,7 @@ def ler_argumentos():
     parser.add_argument("--tipo-video", default="fisioterapia", choices=["fisioterapia", "cirurgia"])
     parser.add_argument("--audio", default=dados / "teste.wav", type=Path)
     parser.add_argument("--paciente", default="P001", help="Paciente do vídeo/áudio")
-    parser.add_argument("--qdeFalantes", default=1, help="Quantidade de falantes no áudio")
+    parser.add_argument("--qdeFalantes", default=2, help="Quantidade de falantes no áudio")
     parser.add_argument("--sinais", default=dados / "sinais_vitais.csv", type=Path)
     parser.add_argument("--prescricoes", default=dados / "prescricoes.csv", type=Path)
     parser.add_argument("--movimentacao", default=dados / "movimentacao.csv", type=Path)

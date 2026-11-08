@@ -326,7 +326,6 @@ def analisar_audio(caminho_audio, paciente_id, qde_Falantes):
     caminho_wav = config.PASTA_SAIDA / f"{caminho_audio.stem}_16khz.wav"
     soundfile.write(caminho_wav, sinal, taxa, subtype="PCM_16")
 
-    caracteristicas = extrair_caracteristicas_voz(sinal, taxa)
     transcricao, fonte_transcricao = obter_transcricao(caminho_audio, caminho_wav, qde_Falantes)
 
     falas = transcricao if isinstance(transcricao, list) else []
@@ -335,12 +334,13 @@ def analisar_audio(caminho_audio, paciente_id, qde_Falantes):
 
     if qde_Falantes > 1 :
         id_falante_paciente = selecionar_falante_paciente(falas)
+        caracteristicas_falante = (extrair_caracteristicas_voz_falante(
+            sinal, taxa, falas, id_falante_paciente) if id_falante_paciente else None)
+    else :
+        caracteristicas_falante = extrair_caracteristicas_voz(sinal, taxa)
 
     texto_paciente = texto_do_falante(falas, id_falante_paciente)
 
-    caracteristicas_falante = (extrair_caracteristicas_voz_falante(
-        sinal, taxa, falas, id_falante_paciente) if id_falante_paciente else None)
-    
     metricas_vocais_atribuiveis = bool(texto_paciente) and caracteristicas_falante is not None
 
     if metricas_vocais_atribuiveis:
